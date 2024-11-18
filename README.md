@@ -5,10 +5,15 @@ Grupo KBT-11220
 
 ## Participantes
 Ianigro, Hernán Andrés
+
 Avalos, Lucas Martin
+
 Adam, Johann Gustavo
+
 Ciani, Alejandro Nahuel
+
 Martinez, Germán Nicolás
+
 
 ## Capturas de pantalla
 ![escenario](./img/captura1.jpg)
