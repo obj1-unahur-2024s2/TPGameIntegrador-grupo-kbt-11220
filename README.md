@@ -4,15 +4,11 @@
 Grupo KBT-11220
 
 ## Participantes
-Ianigro, Hernán Andrés
-
-Avalos, Lucas Martin
-
-Adam, Johann Gustavo
-
-Ciani, Alejandro Nahuel
-
-Martinez, Germán Nicolás
+- Ianigro, Hernán Andrés
+- Avalos, Lucas Martin
+- Adam, Johann Gustavo
+- Ciani, Alejandro Nahuel
+- Martinez, Germán Nicolás
 
 
 ## Capturas de pantalla
@@ -25,8 +21,10 @@ Al entrar en batalla, cada Pokemon tiene 4 ataques a elegir (dos de su tipo prim
 
 ### Controles:
 - Presiona ENTER para comenzar.
+- Para salir de la pantalla de instrucciones, presiona SPACE.
 - Las flechas arriba, abajo, izquierda y derecha mueven al personaje.
 - El botón Z sirve para interactuar con los demás personajes y para aceptar las opciones.
+- (En batalla) El botón X sirve para cambiar el Pokémon utilizado por otro.
 
 ### Resultados de una batalla:
 - Que todos nuestros Pokemon se debiliten, por lo que nosotros perdemos y debemos ir a curarlos para volver a jugar una revancha.
@@ -113,8 +111,6 @@ Hada
 
 ### Stats:
 - Puntos de vida (hp): La cantidad de vida del Pokemon, que disminuye con cada ataque. Al llegar a 0, el pokemon ya no puede continuar peleando.
-- Ataque (atk): Determina el daño de los ataques físicos (Cuchillada, Megacuerno, etc).
-- Ataque Especial (spa): Determina el daño de ataques especiales (Aliento Dragón, Lanzallamas, etc).
-- Defensa (def): Determina la capacidad de cada Pokemon para defenderse de ataques físicos.
-- Defensa Especial (spd): Determina la capacidad de cada Pokemon para defenderse de ataques especiales.
+- Ataque (atk): Determina el daño de los ataques (Cuchillada, Megacuerno, etc).
+- Defensa (def): Determina la capacidad de cada Pokemon para defenderse de ataques.
 - Velocidad (spe): El pokemon con más velocidad será el primero en atacar.

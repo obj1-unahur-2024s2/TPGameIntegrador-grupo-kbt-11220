@@ -1,5 +1,6 @@
 import wollok.game.*
 import batalla.*
+import dialogos.*
 import movimientos.*
 import nivel.*
 import npc.*
@@ -9,17 +10,26 @@ import tipo.*
 
 program PokeSafari {
 	game.title("Pokemon Safari")
-	game.height(30)
-	game.width(40)
+	game.height(15)
+	game.width(15)
 	game.addVisual(pantallaDeInicio)
 	pantallaDeInicio.iniciarAnimacion()
 	const op = game.sound("opening.mp3")
 	game.schedule(0,{op.play()})
+	game.schedule(2000,{op.volume(0.8)})
+	game.schedule(4000,{op.volume(0.6)})
+	game.schedule(6000,{op.volume(0.4)})
+	game.schedule(8000,{op.volume(0.2)})
 	game.schedule(10000,{op.stop()})
 	keyboard.enter().onPressDo({
-	    juego.empezar()  // Inicia el juego
-		game.boardGround("fondoSafari.jpg")
-        nivel1.cargar()  // Carga el nivel después de empezar el juego
+		game.sound("button.mp3").play()
+		juego.empezar()
+    })
+	keyboard.space().onPressDo({
+		juego.continuar()
+		game.sound("button.mp3").play()
+	    game.boardGround("nivelcentral.jpg")
+        nivelCentral.cargar()
     })
 	game.start()
 }
