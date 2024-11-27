@@ -14,15 +14,36 @@ object batalla {
 	var property pokemonAliado = new Pokemon()
 	var pokemonsEnemigos = null
 	var property enemigo = null
+	var property pokemonRestantes = null
+	const musicaBatalla1 = game.sound("battle.mp3")
+	const musicaBatalla2 = game.sound("battleleyenda.mp3")
+	method parar1(){
+		if(musicaBatalla1.played())game.schedule(100,{musicaBatalla1.stop()})
+    }
+	method parar2(){
+		if(musicaBatalla2.played())game.schedule(100,{musicaBatalla2.stop()})
+    }
 	method iniciar (npc){
 		game.clear()
+		nivelCentral.descargar()
+		nivelDerecha.descargar()
+		nivelIzquierda.descargar()
+		nivelArriba.descargar()
 		personaje.ocupado(false)
 		enemigo = npc
 		pokemonsEnemigos = enemigo.pokemonTeam()
 		pokemonEnemigo = pokemonsEnemigos.first()
 		paredesMenu.generar()
-		game.addVisual(new ElementoInterfaz(image="fondobatalla.jpg", position = game.at(0,0)))
+		if(self.mapas()==1){game.addVisual(new ElementoInterfaz(image="fondobatallacentral.jpg", position = game.at(0,0)))}
+		if(self.mapas()==2){game.addVisual(new ElementoInterfaz(image="fondobatalladerecha.jpg", position = game.at(0,0)))}
+		if(self.mapas()==3){game.addVisual(new ElementoInterfaz(image="fondobatallaizquierda.jpg", position = game.at(0,0)))}
+		if(self.mapas()==4){game.addVisual(new ElementoInterfaz(image="fondobatallaarriba.jpg", position = game.at(0,0)))}
 		game.addVisual(new ElementoInterfaz(image="menu.png", position = game.at(0,0)))
+		musicaBatalla1.shouldLoop(true)
+    	if(!musicaBatalla1.played()&&self.mapas()==1)game.schedule(500,{musicaBatalla1.play()})
+		if(!musicaBatalla1.played()&&self.mapas()==2)game.schedule(500,{musicaBatalla1.play()})
+		if(!musicaBatalla1.played()&&self.mapas()==3)game.schedule(500,{musicaBatalla1.play()})
+		if(!musicaBatalla2.played()&&self.mapas()==4)game.schedule(500,{musicaBatalla2.play()})
 		if(personaje.pokemonVivos().isEmpty()){
 			self.terminar()
 			throw new Exception(message= "No tienes ningun pokemon para pelear...")
@@ -37,6 +58,7 @@ object batalla {
 		game.addVisual(move4)
 		game.addVisual(pokemonEnemigo)
 		game.addVisual(vidaEnemigo)
+		vidaEnemigo.actualizar()
 		game.addVisual(seleccionarSkill)
 		keyboard.up().onPressDo{if (game.height()-13 > seleccionarSkill.position().y())
 			seleccionarSkill.irVertical(arriba)
@@ -78,14 +100,17 @@ object batalla {
 	}
 	method siguientePokemon(){
 		game.removeVisual(pokemonAliado)
+		game.removeVisual(vidaAliado)
 		personaje.pokemonTeam().randomize()
 		pokemonAliado = personaje.pokemonVivos().first()
+		game.sound("change.mp3").play()
+		vidaAliado.actualizar()
 		game.addVisual(pokemonAliado)
+		game.addVisual(vidaAliado)
 		self.actualizarMoveset()
 		enemigo.ocupado(false)
 	}
 	method pokemonKO (quePokemon){
-		var pokemonRestantes
 		if (quePokemon == pokemonEnemigo){
 			pokemonRestantes = pokemonsEnemigos.filter({pokemon=>pokemon.estaVivo()})
 			if (pokemonRestantes.isEmpty()){
@@ -101,21 +126,30 @@ object batalla {
 			pokemonRestantes = personaje.pokemonTeam().filter({pokemon=>pokemon.estaVivo()})
 			if(pokemonRestantes.isEmpty()) self.terminar()	else{
 				game.removeVisual(pokemonAliado)
+				game.removeVisual(vidaAliado)
 				pokemonAliado = pokemonRestantes.first()
 				game.addVisual(pokemonAliado)
+				vidaAliado.actualizar()
+				game.addVisual(vidaAliado)
 				self.actualizarMoveset()
 				enemigo.ocupado(false)
+				personaje.ocupado(false)
 			}
 		}
 	}
 	method terminar(){
 		enemigo.pokemonTeam().forEach{pokemon=>pokemon.recuperarse()}
+		self.parar1()
 		game.clear()
 		if(self.mapas()==1){nivelCentral.cargar()}
 		if(self.mapas()==2){nivelDerecha.cargar()}
 		if(self.mapas()==3){nivelIzquierda.cargar()}
 		if(self.mapas()==4){nivelArriba.cargar()}
+		self.derrotado(enemigo)
 		personaje.ocupado(false)
+	}
+	method derrotado(poke){
+		enemigo.perder()
 	}
 	method elPokemonMasRapido() {
 		if (pokemonEnemigo.spe() > pokemonAliado.spe()) return pokemonEnemigo else return pokemonAliado 
@@ -129,30 +163,6 @@ class ElementoInterfaz{
 	var property image
 	var property position = game.origin()
 }
-
-/*class Vida {
-	var property numero
-	var property position
-	method image () = numero.image()
-	method actualizarVida() {
-		game.removeVisual(vidaAliado)
-		numero = batalla.pokemonAliado().hpActual()
-		game.addVisual(vidaAliado)
-		game.removeVisual(vidaEnemigo)
-		numero = batalla.pokemonEnemigo().hpActual()
-		game.addVisual(vidaEnemigo)
-	}
-}
-
-object vidaAliado inherits Vida (
-	numero = batalla.pokemonAliado().hpActual(),
-	position = game.at(8,5)
-){}
-
-object vidaEnemigo inherits Vida (
-	numero = batalla.pokemonEnemigo().hpActual(),
-	position = game.at(1,12)
-){}*/
 
 object vidaAliado {
 	var property numero = batalla.pokemonAliado().hpActual()
@@ -222,9 +232,9 @@ object seleccionarSkill{
 	}
 	method interactuar (){
 		if (!personaje.ocupado() && !batalla.enemigo().ocupado()){
-			batalla.elPokemonMasRapido().owner().ocupado(true)
-			batalla.elPokemonMasRapido().atacar(self.deducirAtaque(batalla.elPokemonMasRapido()),batalla.elPokemonMasLento())
-			game.schedule(5000,{if(!batalla.elPokemonMasRapido().owner().ocupado())batalla.elPokemonMasLento().atacar(self.deducirAtaque(batalla.elPokemonMasLento()),batalla.elPokemonMasRapido())})
+			batalla.pokemonAliado().owner().ocupado(true)
+			batalla.pokemonEnemigo().atacar(self.deducirAtaque(batalla.pokemonEnemigo()),batalla.pokemonAliado())
+			if(vidaAliado.numero() > 0){game.schedule(5000,{batalla.pokemonAliado().atacar(self.deducirAtaque(batalla.pokemonAliado()),batalla.pokemonEnemigo())})}
 		}
 	}
 	method deducirAtaque(quienAtaca){

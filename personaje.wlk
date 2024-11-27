@@ -104,20 +104,9 @@ object paredesMenu {
 	method puedePisarte(_) = false
 }
 
-class Teleport {
+class Teleports {
 	var property position
-	var property destino
-	method image() = ""
 	method esAtravesable() = true
-}
-
-object teleports{
-	var property listaTps1 = []
-	var property listaTps2 = []
-	var property listaTps3 = []
-	var property listaTps4 = []
-	var property listaTps5 = []
-	var property listaTps6 = []
 	method irDerecha(){
 		game.clear()
 		nivelDerecha.cargar()
@@ -134,44 +123,18 @@ object teleports{
 		game.clear()
 		nivelCentral.cargar()
 	}
-	method generarCentral() {
-		listaTps1.add(new Teleport(position = new Position(x=14,y=7),destino = new Position(x=1, y=7)))
-		listaTps1.add(new Teleport(position = new Position(x=14,y=8),destino = new Position(x=1, y=8)))
-		listaTps2.add(new Teleport(position = new Position(x=0,y=7),destino = new Position(x=13, y=7)))
-		listaTps2.add(new Teleport(position = new Position(x=0,y=8),destino = new Position(x=13, y=8)))
-		listaTps3.add(new Teleport(position = new Position(x=6,y=14),destino = new Position(x=6, y=1)))
-		listaTps3.add(new Teleport(position = new Position(x=7,y=14),destino = new Position(x=7, y=1)))
-		listaTps3.add(new Teleport(position = new Position(x=8,y=14),destino = new Position(x=8, y=1)))
-		listaTps1.forEach {teleport=>game.addVisual(teleport)}
-		listaTps1.forEach{tp=>game.whenCollideDo(tp,{personaje=>personaje.position(tp.destino())})
-		self.irDerecha()}
-		listaTps2.forEach {teleport=>game.addVisual(teleport)}
-		listaTps2.forEach{tp=>game.whenCollideDo(tp,{personaje=>personaje.position(tp.destino())})
-		self.irIzquierda()}
-		listaTps3.forEach {teleport=>game.addVisual(teleport)}
-		listaTps3.forEach{tp=>game.whenCollideDo(tp,{personaje=>personaje.position(tp.destino())})
-		self.irArriba()}
-	}
-	method generarDerecha() {
-		listaTps4.add(new Teleport(position = new Position(x=0,y=7),destino = new Position(x=13, y=7)))
-		listaTps4.add(new Teleport(position = new Position(x=0,y=8),destino = new Position(x=13, y=8)))
-		listaTps4.forEach {teleport=>game.addVisual(teleport)}
-		listaTps4.forEach{tp=>game.whenCollideDo(tp,{personaje=>personaje.position(tp.destino())})
-		self.irCentral()}
-	}
-	method generarIzquierda() {
-		listaTps5.add(new Teleport(position = new Position(x=14,y=7),destino = new Position(x=1, y=7)))
-		listaTps5.add(new Teleport(position = new Position(x=14,y=8),destino = new Position(x=1, y=8)))
-		listaTps5.forEach {teleport=>game.addVisual(teleport)}
-		listaTps5.forEach{tp=>game.whenCollideDo(tp,{personaje=>personaje.position(tp.destino())})
-		self.irCentral()}
-	}
-	method generarArriba() {
-		listaTps6.add(new Teleport(position = new Position(x=6,y=0),destino = new Position(x=6, y=13)))
-		listaTps6.add(new Teleport(position = new Position(x=7,y=0),destino = new Position(x=6, y=13)))
-		listaTps6.add(new Teleport(position = new Position(x=8,y=0),destino = new Position(x=6, y=13)))
-		listaTps6.forEach {teleport=>game.addVisual(teleport)}
-		listaTps6.forEach{tp=>game.whenCollideDo(tp,{personaje=>personaje.position(tp.destino())})
-		self.irCentral()}
-	}
 }
+object teleport1A inherits Teleports(position = game.at(14,7)){}
+object teleport2A inherits Teleports(position = game.at(14,8)){}
+object teleport3A inherits Teleports(position = game.at(6,14)){}
+object teleport4A inherits Teleports(position = game.at(7,14)){}
+object teleport5A inherits Teleports(position = game.at(8,14)){}
+object teleport6A inherits Teleports(position = game.at(0,7)){}
+object teleport7A inherits Teleports(position = game.at(0,8)){}
+object teleport1B inherits Teleports(position = game.at(0,7)){}
+object teleport2B inherits Teleports(position = game.at(0,8)){}
+object teleport3B inherits Teleports(position = game.at(6,0)){}
+object teleport4B inherits Teleports(position = game.at(7,0)){}
+object teleport5B inherits Teleports(position = game.at(8,0)){}
+object teleport6B inherits Teleports(position = game.at(14,7)){}
+object teleport7B inherits Teleports(position = game.at(14,8)){}

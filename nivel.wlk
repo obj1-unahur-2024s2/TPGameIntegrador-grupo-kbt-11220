@@ -11,13 +11,17 @@ import tipo.*
 object nivelCentral {
     var property number = 1
     var property name = "center"
-    const musica = game.sound("Safari.mp3")
+    const musicaCentral = game.sound("musicaCentral.mp3")
+    method descargar(){
+        if(musicaCentral.played())game.schedule(100,{musicaCentral.stop()})
+    }
 	method cargar() {
-    	game.boardGround("nivelcentral.jpg")
+        game.boardGround("nivelcentral.jpg")
         batalla.mapas(self.number())
+        batalla.parar1()
         game.addVisual(new ElementoInterfaz(image="nivelcentral.jpg", position = game.at(0,0)))
-        musica.shouldLoop(true)
-        game.schedule(500,{musica.play()})
+        musicaCentral.shouldLoop(true)
+        if(!musicaCentral.played())game.schedule(500,{musicaCentral.play()})
         const position = game.at(0,0)
 		//PAREDES
 		const ancho = game.width() - 1
@@ -43,9 +47,24 @@ object nivelCentral {
 		game.addVisual(personaje)
         game.addVisual(enfermeraJoy)
         game.addVisual(profesorOak)
+        profesorOak.llamar()
         game.addVisual(venusaur)
         game.addVisual(pidgeot)
         game.addVisual(cartel)
+        game.addVisual(teleport1A)
+        game.onCollideDo(teleport1A,{personaje => teleport1A.irDerecha() game.sound("stairs.mp3").play() self.descargar() personaje.position(game.at(1,7))})
+        game.addVisual(teleport2A)
+        game.onCollideDo(teleport2A,{personaje => teleport2A.irDerecha() game.sound("stairs.mp3").play() self.descargar() personaje.position(game.at(1,8))})
+        game.addVisual(teleport3A)
+        game.onCollideDo(teleport3A,{personaje => teleport3A.irArriba() game.sound("stairs.mp3").play() self.descargar() personaje.position(game.at(6,1))})
+        game.addVisual(teleport4A)
+        game.onCollideDo(teleport4A,{personaje => teleport4A.irArriba() game.sound("stairs.mp3").play() self.descargar() personaje.position(game.at(7,1))})
+        game.addVisual(teleport5A)
+        game.onCollideDo(teleport5A,{personaje => teleport5A.irArriba() game.sound("stairs.mp3").play() self.descargar() personaje.position(game.at(8,1))})
+        game.addVisual(teleport6A)
+        game.onCollideDo(teleport6A,{personaje => teleport6A.irIzquierda() game.sound("stairs.mp3").play() self.descargar() personaje.position(game.at(13,7))})
+        game.addVisual(teleport7A)
+        game.onCollideDo(teleport7A,{personaje => teleport7A.irIzquierda() game.sound("stairs.mp3").play() self.descargar() personaje.position(game.at(13,8))})
         //TECLADO
 		keyboard.up().onPressDo{if (game.height()-1 > personaje.position().y()) personaje.ir(arriba)}
         keyboard.down().onPressDo{if (game.height()-14 < personaje.position().y()) personaje.ir(abajo)}
@@ -67,13 +86,17 @@ object nivelCentral {
 object nivelDerecha {
     var property number = 2
     var property name = "right"
-    const musica = game.sound("Safari.mp3")
+    const musicaDerecha = game.sound("musicaDerecha.mp3")
+    method descargar(){
+        if(musicaDerecha.played())game.schedule(100,{musicaDerecha.stop()})
+    }
 	method cargar() {
     	game.boardGround("nivelderecha.jpg")
         batalla.mapas(self.number())
+        batalla.parar1()
         game.addVisual(new ElementoInterfaz(image="nivelderecha.jpg", position = game.at(0,0)))
-        musica.shouldLoop(true)
-        game.schedule(500,{musica.play()})
+        musicaDerecha.shouldLoop(true)
+        if(!musicaDerecha.played())game.schedule(500,{musicaDerecha.play()})
         const position = game.at(0,0)
 		//PAREDES
 		const ancho = game.width() - 1
@@ -101,6 +124,10 @@ object nivelDerecha {
 		game.addVisual(personaje)
         game.addVisual(butterfree)
         game.addVisual(wigglytuff)
+        game.addVisual(teleport1B)
+        game.onCollideDo(teleport1B,{personaje => teleport1B.irCentral() game.sound("stairs.mp3").play() self.descargar() personaje.position(game.at(13,7))})
+        game.addVisual(teleport2B)
+        game.onCollideDo(teleport2B,{personaje => teleport2B.irCentral() game.sound("stairs.mp3").play() self.descargar() personaje.position(game.at(13,8))})
         //TECLADO
 		keyboard.up().onPressDo{if (game.height()-1 > personaje.position().y()) personaje.ir(arriba)}
         keyboard.down().onPressDo{if (game.height()-15 < personaje.position().y()) personaje.ir(abajo)}
@@ -108,7 +135,7 @@ object nivelDerecha {
         keyboard.right().onPressDo{if (game.width()-1 > personaje.position().x()) personaje.ir(derecha)}
         keyboard.z().onPressDo({personaje.interactuar()})
         keyboard.enter().onPressDo({juego.empezar()})
-	}
+    }
 	method restart() {
 		game.clear()
 		self.cargar()
@@ -122,13 +149,17 @@ object nivelDerecha {
 object nivelIzquierda {
     var property number = 3
     var property name = "left"
-    const musica = game.sound("Safari.mp3")
+    const musicaIzquierda = game.sound("musicaIzquierda.mp3")
+    method descargar(){
+        if(musicaIzquierda.played())game.schedule(100,{musicaIzquierda.stop()})
+    }
 	method cargar() {
     	game.boardGround("nivelizquierda.jpg")
         batalla.mapas(self.number())
+        batalla.parar1()
         game.addVisual(new ElementoInterfaz(image="nivelizquierda.jpg", position = game.at(0,0)))
-        musica.shouldLoop(true)
-        game.schedule(500,{musica.play()})
+        musicaIzquierda.shouldLoop(true)
+        if(!musicaIzquierda.played())game.schedule(500,{musicaIzquierda.play()})
         const position = game.at(0,0)
 		//PAREDES
 		const ancho = game.width() - 1
@@ -144,12 +175,6 @@ object nivelIzquierda {
         (8 .. 13).forEach({ n => posicionesParedes.add(new Position(x = 6, y = n)) })
         (8 .. 12).forEach({ n => posicionesParedes.add(new Position(x = 7, y = n)) })
         (1 .. 3).forEach({ n => posicionesParedes.add(new Position(x = n, y = 8)) })
-        (1 .. 7).forEach({ n => posicionesAgua.add(new Position(x = n, y = 1))})
-        (1 .. 7).forEach({ n => posicionesAgua.add(new Position(x = n, y = 2))})
-        (1 .. 2).forEach({ n => posicionesAgua.add(new Position(x = n, y = 3))})
-        (1 .. 7).forEach({ n => posicionesAgua.add(new Position(x = n, y = 4))})
-        (1 .. 7).forEach({ n => posicionesAgua.add(new Position(x = n, y = 5))})
-        (1 .. 7).forEach({ n => posicionesAgua.add(new Position(x = n, y = 6))})
 		posicionesParedes.addAll(
 			[
 			new Position(x = 5, y = 8),
@@ -183,6 +208,10 @@ object nivelIzquierda {
 		game.addVisual(personaje)
         game.addVisual(lapras)
         game.addVisual(lairon)
+        game.addVisual(teleport6B)
+        game.onCollideDo(teleport6B,{personaje => teleport6B.irCentral() game.sound("stairs.mp3").play() self.descargar() personaje.position(game.at(1,7))})
+        game.addVisual(teleport7B)
+        game.onCollideDo(teleport7B,{personaje => teleport7B.irCentral() game.sound("stairs.mp3").play() self.descargar() personaje.position(game.at(1,8))})
         //TECLADO
 		keyboard.up().onPressDo{if (game.height()-1 > personaje.position().y()) personaje.ir(arriba)}
         keyboard.down().onPressDo{if (game.height()-15 < personaje.position().y()) personaje.ir(abajo)}
@@ -203,13 +232,18 @@ object nivelIzquierda {
 
 object nivelArriba {
     var property number = 4
-    const musica = game.sound("Safari.mp3")
+    const musicaArriba = game.sound("musicaArriba.mp3")
+    method descargar(){
+        if(musicaArriba.played())game.schedule(100,{musicaArriba.stop()})
+    }
 	method cargar() {
     	game.boardGround("nivelarriba.jpg")
         batalla.mapas(self.number())
+        batalla.parar1()
+        batalla.parar2()
         game.addVisual(new ElementoInterfaz(image="nivelarriba.jpg", position = game.at(0,0)))
-        musica.shouldLoop(true)
-        game.schedule(500,{musica.play()})
+        musicaArriba.shouldLoop(true)
+        if(!musicaArriba.played())game.schedule(500,{musicaArriba.play()})
         const position = game.at(0,0)
 		//PAREDES
 		const ancho = game.width() - 1
@@ -251,6 +285,13 @@ object nivelArriba {
         //personaje
 		game.addVisual(personaje)
         game.addVisual(kyurem)
+        game.addVisual(kyuremImagen)
+        game.addVisual(teleport3B)
+        game.onCollideDo(teleport3B,{personaje => teleport3B.irCentral() game.sound("stairs.mp3").play() self.descargar() personaje.position(game.at(6,13))})
+        game.addVisual(teleport4B)
+        game.onCollideDo(teleport4B,{personaje => teleport4B.irCentral() game.sound("stairs.mp3").play() self.descargar()  personaje.position(game.at(7,13))})
+        game.addVisual(teleport5B)
+        game.onCollideDo(teleport5B,{personaje => teleport5B.irCentral() game.sound("stairs.mp3").play() self.descargar() personaje.position(game.at(8,13))})
         //TECLADO
 		keyboard.up().onPressDo{if (game.height()-1 > personaje.position().y()) personaje.ir(arriba)}
         keyboard.down().onPressDo{if (game.height()-15 < personaje.position().y()) personaje.ir(abajo)}
@@ -266,6 +307,17 @@ object nivelArriba {
 	method dibujar(dibujo) {
 		game.addVisual(dibujo)
 		return dibujo
+	}
+}
+
+object final {
+    const musicaFinal = game.sound("ending.mp3")
+	method cargar() {
+    	game.boardGround("fin.jpg")
+        game.addVisual(new ElementoInterfaz(image="fin.jpg", position = game.at(0,0)))
+        musicaFinal.shouldLoop(true)
+        game.schedule(500,{musicaFinal.play()})
+        const position = game.at(0,0)
 	}
 }
 

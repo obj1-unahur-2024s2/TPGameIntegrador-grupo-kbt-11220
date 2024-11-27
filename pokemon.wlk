@@ -7,6 +7,27 @@ import npc.*
 import personaje.*
 import tipo.*
 
+object hitAliado {
+	var property image = "hit.gif"
+	var property position = game.at(1,4)
+	method golpear(){
+			game.addVisual(self)
+	}
+	method quitar(){
+			game.removeVisual(self)
+	}
+}
+object hitEnemigo {
+	var property image = "hit.gif"
+	var property position = game.at(8,7)
+	method golpear(){
+			game.addVisual(self)
+	}
+	method quitar(){
+			game.removeVisual(self)
+	}
+}
+//------------------------------------------------------------------------------------------
 class Pokemon {
 	var property owner=self
 	var property name=""
@@ -30,11 +51,11 @@ class Pokemon {
 			return game.at(8,7)
 		}
 	}
-	method posicionDeLaVida (){
+	method hitPosition (){
 		if (side == "ally"){
-			return game.at(8,5)
+			return game.at(1,4)
 		}else{
-			return game.at(1,12)
+			return game.at(8,7)
 		}
 	}
 	method estaVivo () = hpActual != 0
@@ -44,15 +65,21 @@ class Pokemon {
 	method elAtaqueAcerto (ataque, objetivo) = (1 .. 100).anyOne() <= ataque.accuracy()
 	method atacar(ataque,objetivo){
 		self.owner().ocupado(true)
-		game.say(self, name + " ha usado " + ataque.name())
+		game.say(self, name + " ha usado " + ataque.name() + "!")
+		if (objetivo.side() == "ally"){
+			hitAliado.golpear()
+			game.schedule(400,{hitAliado.quitar()})}
+		else{
+			hitEnemigo.golpear()
+			game.schedule(400,{hitEnemigo.quitar()})}
 		game.sound("attack.mp3").play()
-        if (self.elAtaqueAcerto(ataque, objetivo)){
+		if (self.elAtaqueAcerto(ataque, objetivo)){
 			objetivo.recibirDanio (ataque,self)	
 			vidaAliado.actualizar()
 			vidaEnemigo.actualizar()
 		}
 		else{
-			game.schedule(2000,{game.say(objetivo,objetivo.name()+" esquivo el ataque.")})
+			game.schedule(2000,{game.say(objetivo,objetivo.name()+" esquivo el ataque!")})
 			game.schedule(6000,{owner.ocupado(false)})
 		}
 	}
@@ -74,7 +101,7 @@ class Pokemon {
 	}
 	method calcularMultiplicador(ataque,pokemon){
 		var multiplicador= self.calcularEficacia(ataque)
-		if (multiplicador == 0) game.schedule(2000,{game.say(self,"Es inmune al ataque!")})else{
+		if (multiplicador == 0) game.schedule(2000,{game.say(self, name + " es inmune al ataque!")})else{
 			if (multiplicador >= 2) game.schedule(2000,{game.say(self,"Es super efectivo!")})
 			if (multiplicador <= 0.5) game.schedule(2000,{game.say(self,"No es muy efectivo...")})
 			if(multiplicador < 2 && multiplicador > 0.5) game.schedule(2000,{game.say(self,"El ataque dio en el blanco!")})
@@ -93,7 +120,7 @@ class Pokemon {
 	}
 	method statsBase() {}
 }
-
+//------------------------------------------------------------------------------------------
 class Torterra inherits Pokemon{
 	override method statsBase(){
 		name ="Torterra"
@@ -104,10 +131,9 @@ class Torterra inherits Pokemon{
 		spe =80
 		types=[planta,suelo]
 		moveset = [hojasnavaja,terremoto,cabezahierro,cuchillada]
-	//	self.stats()
 	}
 }
-
+//------------------------------------------------------------------------------------------
 class Blaziken inherits Pokemon{
 	override method statsBase(){
 		name ="Blaziken"
@@ -118,10 +144,9 @@ class Blaziken inherits Pokemon{
 		spe =80
 		types=[fuego,lucha]
 		moveset = [lanzallamas,brazomartillo,tumbaroca,tajoumbrio]
-		self.stats()
 	}
 }
-
+//------------------------------------------------------------------------------------------
 class Lanturn inherits Pokemon{
 	override method statsBase(){
 		name ="Lanturn"
@@ -132,10 +157,9 @@ class Lanturn inherits Pokemon{
 		spe =80
 		types=[agua,electrico]
 		moveset = [surf,chispa,rayosenial,bolasombra]
-		self.stats()
 	}
 }
-
+//------------------------------------------------------------------------------------------
 class Venusaur inherits Pokemon{
 	override method statsBase(){
 		name ="Venusaur"
@@ -146,10 +170,9 @@ class Venusaur inherits Pokemon{
 		spe =65
 		types=[planta,veneno]
 		moveset = [hojasnavaja,acido,tumbaroca,psicorrayo]
-		self.stats()
 	}
 }
-
+//------------------------------------------------------------------------------------------
 class Pidgeot inherits Pokemon{
 	override method statsBase () {
 		name ="Pidgeot"
@@ -160,10 +183,9 @@ class Pidgeot inherits Pokemon{
 		spe =65
 		types=[normal,volador]
 		moveset = [cuchillada,ataqueala,vientofeerico,tajoumbrio]
-	//	self.stats()
 	}
 }
-
+//------------------------------------------------------------------------------------------
 class Lapras inherits Pokemon{
 	override method statsBase () {
 		name ="Lapras"
@@ -174,10 +196,9 @@ class Lapras inherits Pokemon{
 		spe =65
 		types=[agua,hielo]
 		moveset = [surf,rayohielo,psicorrayo,alientodragon]
-		self.stats()
 	}
 }
-
+//------------------------------------------------------------------------------------------
 class Butterfree inherits Pokemon{
 	override method statsBase () {
 		name ="Butterfree"
@@ -188,10 +209,9 @@ class Butterfree inherits Pokemon{
 		spe =65
 		types=[bicho,volador]
 		moveset = [rayosenial,ataqueala,acido,chispa]
-		self.stats()
 	}
 }
-
+//------------------------------------------------------------------------------------------
 class Lairon inherits Pokemon{
 	override method statsBase () {
 		name ="Lairon"
@@ -202,10 +222,9 @@ class Lairon inherits Pokemon{
 		spe =65
 		types=[acero,roca]
 		moveset = [cabezahierro,tumbaroca,terremoto,brazomartillo]
-		self.stats()
 	}
 }
-
+//------------------------------------------------------------------------------------------
 class Wigglytuff inherits Pokemon{
 	override method statsBase () {
 		name ="Wigglytuff"
@@ -216,10 +235,9 @@ class Wigglytuff inherits Pokemon{
 		spe =65
 		types=[normal,hada]
 		moveset = [cuchillada,vientofeerico,psicorrayo,chispa]
-		self.stats()
 	}
 }
-
+//------------------------------------------------------------------------------------------
 class Kyurem inherits Pokemon{
 	override method statsBase () {
 		name ="Kyurem"
@@ -230,6 +248,5 @@ class Kyurem inherits Pokemon{
 		spe =100
 		types=[dragon,hielo]
 		moveset = [alientodragon,rayohielo,bolasombra,lanzallamas]
-		self.stats()
 	}
 }

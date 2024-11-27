@@ -12,8 +12,9 @@ Grupo KBT-11220
 
 
 ## Capturas de pantalla
-![escenario](./img/captura1.jpg)
-![batalla](./img/captura2.jpg)
+![inicio](./img/captura1.jpg)
+![escenario](./img/captura2.jpg)
+![batalla](./img/captura3.jpg)
 
 ## Cómo jugar
 ¡Bienvenido a la Zona Safari, un lugar lleno de extraños Pokemon! Al iniciar el juego, nos convertimos en un entrenador Pokemon, al que movemos con las flechas direccionales. Con la tecla "Z" interactuamos con el individuo que estemos mirando. El personaje de cabello rosa es la enfermera Joy, encargada de curar a nuestros Pokemon cuando estos se debilitan tras un combate, y el más cercano a nosotros es el profesor Oak, encargado de darnos nuestro equipo de tres Pokemon iniciales. Dentro de la zona nos vamos a encontrar diferentes tipo de Pokemon salvajes, los cuales hay que combatir y derrotar. La dificultad de cada uno varía con sus tipos y debilidades, además, hay un Pokemon legendario llamado Kyurem. ¡El más fuerte de todos!
@@ -113,4 +114,3 @@ Hada
 - Puntos de vida (hp): La cantidad de vida del Pokemon, que disminuye con cada ataque. Al llegar a 0, el pokemon ya no puede continuar peleando.
 - Ataque (atk): Determina el daño de los ataques (Cuchillada, Megacuerno, etc).
 - Defensa (def): Determina la capacidad de cada Pokemon para defenderse de ataques.
-- Velocidad (spe): El pokemon con más velocidad será el primero en atacar.

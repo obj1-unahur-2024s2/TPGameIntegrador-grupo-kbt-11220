@@ -16,20 +16,21 @@ program PokeSafari {
 	pantallaDeInicio.iniciarAnimacion()
 	const op = game.sound("opening.mp3")
 	game.schedule(0,{op.play()})
-	game.schedule(2000,{op.volume(0.8)})
-	game.schedule(4000,{op.volume(0.6)})
-	game.schedule(6000,{op.volume(0.4)})
-	game.schedule(8000,{op.volume(0.2)})
+	game.schedule(3000,{op.volume(0.7)})
+	game.schedule(6000,{op.volume(0.3)})
 	game.schedule(10000,{op.stop()})
+	var space = false
 	keyboard.enter().onPressDo({
 		game.sound("button.mp3").play()
 		juego.empezar()
+		space = true
     })
-	keyboard.space().onPressDo({
+	keyboard.space().onPressDo{if(space){
 		juego.continuar()
 		game.sound("button.mp3").play()
 	    game.boardGround("nivelcentral.jpg")
         nivelCentral.cargar()
-    })
+    }else{null}
+	}
 	game.start()
 }
