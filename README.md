@@ -12,9 +12,9 @@ Grupo KBT-11220
 
 
 ## Capturas de pantalla
-![inicio](./img/captura1.jpg)
-![escenario](./img/captura2.jpg)
-![batalla](./img/captura3.jpg)
+![inicio](./img/captura01.jpg)
+![escenario](./img/captura02.jpg)
+![batalla](./img/captura03.jpg)
 
 ## Cómo jugar
 ¡Bienvenido a la Zona Safari, un lugar lleno de extraños Pokemon! Al iniciar el juego, nos convertimos en un entrenador Pokemon, al que movemos con las flechas direccionales. Con la tecla "Z" interactuamos con el individuo que estemos mirando. El personaje de cabello rosa es la enfermera Joy, encargada de curar a nuestros Pokemon cuando estos se debilitan tras un combate, y el más cercano a nosotros es el profesor Oak, encargado de darnos nuestro equipo de tres Pokemon iniciales. Dentro de la zona nos vamos a encontrar diferentes tipo de Pokemon salvajes, los cuales hay que combatir y derrotar. La dificultad de cada uno varía con sus tipos y debilidades, además, hay un Pokemon legendario llamado Kyurem. ¡El más fuerte de todos!
