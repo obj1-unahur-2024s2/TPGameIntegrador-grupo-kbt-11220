@@ -128,6 +128,16 @@ object nivelDerecha {
         game.onCollideDo(teleport1B,{personaje => teleport1B.irCentral() game.sound("stairs.mp3").play() self.descargar() personaje.position(game.at(13,7))})
         game.addVisual(teleport2B)
         game.onCollideDo(teleport2B,{personaje => teleport2B.irCentral() game.sound("stairs.mp3").play() self.descargar() personaje.position(game.at(13,8))})
+        //luciernagas
+        const posicionesLuciernaga = []
+        posicionesLuciernaga.addAll(
+			[
+			new Position(x = 9, y = 13),
+            new Position(x = 13, y = 11),
+            new Position(x = 2, y = 5)
+			]
+		)
+        posicionesLuciernaga.forEach({ posicionLuciernaga => self.dibujar(new Luciernaga(position = posicionLuciernaga)) })
         //TECLADO
 		keyboard.up().onPressDo{if (game.height()-1 > personaje.position().y()) personaje.ir(arriba)}
         keyboard.down().onPressDo{if (game.height()-15 < personaje.position().y()) personaje.ir(abajo)}
@@ -292,6 +302,29 @@ object nivelArriba {
         game.onCollideDo(teleport4B,{personaje => teleport4B.irCentral() game.sound("stairs.mp3").play() self.descargar()  personaje.position(game.at(7,13))})
         game.addVisual(teleport5B)
         game.onCollideDo(teleport5B,{personaje => teleport5B.irCentral() game.sound("stairs.mp3").play() self.descargar() personaje.position(game.at(8,13))})
+        //brillos
+        const posicionesBrillo = []
+        posicionesBrillo.addAll(
+			[
+			new Position(x = 4, y = 8),
+            new Position(x = 5, y = 8),
+            new Position(x = 4, y = 9),
+            new Position(x = 5, y = 9),
+            new Position(x = 9, y = 8),
+            new Position(x = 9, y = 9),
+			new Position(x = 10, y = 8),
+            new Position(x = 10, y = 9),
+            new Position(x = 7, y = 11),
+            new Position(x = 7, y = 12),
+            new Position(x = 2, y = 9),
+            new Position(x = 12, y = 9),
+            new Position(x = 3, y = 11),
+			new Position(x = 11, y = 11),
+            new Position(x = 5, y = 12),
+			new Position(x = 9, y = 12)
+			]
+		)
+        posicionesBrillo.forEach({ posicionBrillo => self.dibujar(new Brillo(position = posicionBrillo)) })
         //TECLADO
 		keyboard.up().onPressDo{if (game.height()-1 > personaje.position().y()) personaje.ir(arriba)}
         keyboard.down().onPressDo{if (game.height()-15 < personaje.position().y()) personaje.ir(abajo)}

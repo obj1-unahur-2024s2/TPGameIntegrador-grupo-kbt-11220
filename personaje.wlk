@@ -23,6 +23,7 @@ object personaje {
 		if(game.getObjectsIn(direccion.avanzar(position,1)).all({objeto => objeto.esAtravesable()})){
 			position = direccion.avanzar(position,1)
 		}
+		else{game.sound("bump.mp3").play()}
 	}
 	method interactuar (){
 		game.getObjectsIn(direccion.avanzar(position,1)).forEach({npc=>if(!ocupado){npc.interactuar()}})
@@ -57,12 +58,31 @@ object abajo {
 	method avanzar (position,cantidad) {return position.down(cantidad)}
 }
 
+class Brillo {
+	const property position
+	method movete(direccion) { }
+	method puedePisarte(_) = true
+	method esAtravesable() = false
+	method image() = "sparkle.gif"
+	method interactuar (){}
+}
+
+class Luciernaga {
+	const property position
+	method movete(direccion) { }
+	method puedePisarte(_) = true
+	method esAtravesable() = true
+	method image() = "firefly.gif"
+	method interactuar (){}
+}
+
 class Agua {
 	const property position
 	method movete(direccion) { }
 	method puedePisarte(_) = true
 	method esAtravesable() = false
 	method image() = "water2.gif"
+	method interactuar (){}
 }
 
 class Rio {
@@ -71,6 +91,7 @@ class Rio {
 	method puedePisarte(_) = false
 	method esAtravesable() = false
 	method image() = "river.gif"
+	method interactuar (){}
 }
 
 class Cascada {
@@ -79,6 +100,7 @@ class Cascada {
 	method puedePisarte(_) = false
 	method esAtravesable() = false
 	method image() = "waterfall.gif"
+	method interactuar (){}
 }
 
 class Pared {
@@ -88,6 +110,7 @@ class Pared {
 	}
 	method puedePisarte(_) = false
 	method esAtravesable() = false
+	method interactuar (){}
 }
 
 object paredesMenu {
@@ -102,10 +125,12 @@ object paredesMenu {
 		posParedes.forEach { p => game.addVisual(new Pared(position = p))}
 	}
 	method puedePisarte(_) = false
+	method interactuar (){}
 }
 
 class Teleports {
 	var property position
+	method interactuar (){}
 	method esAtravesable() = true
 	method irDerecha(){
 		game.clear()

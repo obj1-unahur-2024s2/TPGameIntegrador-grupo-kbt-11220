@@ -16,9 +16,6 @@ program PokeSafari {
 	pantallaDeInicio.iniciarAnimacion()
 	const op = game.sound("opening.mp3")
 	game.schedule(0,{op.play()})
-	game.schedule(3000,{op.volume(0.7)})
-	game.schedule(6000,{op.volume(0.3)})
-	game.schedule(10000,{op.stop()})
 	var space = false
 	keyboard.enter().onPressDo({
 		game.sound("button.mp3").play()
@@ -29,6 +26,7 @@ program PokeSafari {
 		juego.continuar()
 		game.sound("button.mp3").play()
 	    game.boardGround("nivelcentral.jpg")
+		if(op.played())game.schedule(100,{op.stop()})
         nivelCentral.cargar()
     }else{null}
 	}
