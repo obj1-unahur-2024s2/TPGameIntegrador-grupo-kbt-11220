@@ -128,7 +128,7 @@ object profesorOak inherits Npc{
 		self.mostrarDialogo3()
 		game.sound("winner.mp3").play()
 		nivelCentral.descargar()
-		game.schedule(3000,{game.clear()})
+		//game.schedule(3000,{game.clear()})
 		game.schedule(3100,{final.cargar()})
 		}
 		hablo = true

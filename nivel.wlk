@@ -364,6 +364,8 @@ object nivelArriba {
 object final {
     const musicaFinal = game.sound("ending.mp3")
 	method cargar() {
+        game.clear()
+        personaje.ocupado(true)
     	game.boardGround("fin.jpg")
         game.addVisual(new ElementoInterfaz(image="fin.jpg", position = game.at(0,0)))
         musicaFinal.shouldLoop(true)
