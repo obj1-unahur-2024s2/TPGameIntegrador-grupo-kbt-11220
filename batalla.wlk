@@ -150,6 +150,7 @@ object batalla {
 	}
 	method derrotado(poke){
 		enemigo.perder()
+		pokemonesCapturados.sumar()
 	}
 	method elPokemonMasRapido() {
 		if (pokemonEnemigo.spe() > pokemonAliado.spe()) return pokemonEnemigo else return pokemonAliado 

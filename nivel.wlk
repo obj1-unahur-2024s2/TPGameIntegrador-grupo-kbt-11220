@@ -7,6 +7,16 @@ import personaje.*
 import pokemon.*
 import tipo.*
 
+object pokeball {
+    var property position = game.at(10, 14)
+    method image() = "pokeb.gif"
+}
+object pokemonesCapturados {
+    var numero = 0
+    method sumar() {numero+=1}
+    var property position = game.at(12, 14)
+    method image() = "pokemonCapturado" + numero.toString() + ".png"
+}
 
 object nivelCentral {
     var property number = 1
@@ -44,6 +54,8 @@ object nivelCentral {
 		)
 		posicionesParedes.forEach({ posicionParedes => self.dibujar(new Pared(position = posicionParedes)) })
         //personaje
+        game.addVisual(pokeball)
+        game.addVisual(pokemonesCapturados)
 		game.addVisual(personaje)
         game.addVisual(enfermeraJoy)
         game.addVisual(profesorOak)
@@ -121,6 +133,8 @@ object nivelDerecha {
 		)
 		posicionesParedes.forEach({ posicionParedes => self.dibujar(new Pared(position = posicionParedes)) })
         //personaje
+        game.addVisual(pokeball)
+        game.addVisual(pokemonesCapturados)
 		game.addVisual(personaje)
         game.addVisual(butterfree)
         game.addVisual(wigglytuff)
@@ -215,6 +229,8 @@ object nivelIzquierda {
         (13 .. 14).forEach({ n => posicionesCascada.add(new Position(x = 7, y = n))})
         posicionesCascada.forEach({ posicionCascada => self.dibujar(new Cascada(position = posicionCascada)) })
         //personaje
+        game.addVisual(pokeball)
+        game.addVisual(pokemonesCapturados)
 		game.addVisual(personaje)
         game.addVisual(lapras)
         game.addVisual(lairon)
@@ -293,6 +309,8 @@ object nivelArriba {
 		)
 		posicionesParedes.forEach({ posicionParedes => self.dibujar(new Pared(position = posicionParedes)) })
         //personaje
+        game.addVisual(pokeball)
+        game.addVisual(pokemonesCapturados)
 		game.addVisual(personaje)
         game.addVisual(kyurem)
         game.addVisual(kyuremImagen)
