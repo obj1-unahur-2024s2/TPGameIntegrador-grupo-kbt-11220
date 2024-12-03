@@ -111,6 +111,13 @@ object profesorOak inherits Npc{
 			personaje.agregarPokemon(new Blaziken(owner=personaje))
 			personaje.agregarPokemon(new Lanturn(owner=personaje))
 			cumplioProposito = true
+			venusaur.puedePelear(true)
+			pidgeot.puedePelear(true)
+			butterfree.puedePelear(true)
+			wigglytuff.puedePelear(true)
+			lairon.puedePelear(true)
+			lapras.puedePelear(true)
+			kyurem.puedePelear(true)
 		}
 		if(cumplioProposito&&hablo){
 			self.mostrarDialogo2()
@@ -122,7 +129,7 @@ object profesorOak inherits Npc{
 		game.sound("winner.mp3").play()
 		nivelCentral.descargar()
 		game.schedule(3000,{game.clear()})
-		game.schedule(3000,{final.cargar()})
+		game.schedule(3100,{final.cargar()})
 		}
 		hablo = true
 		game.schedule(2000,{personaje.ocupado(false)})
@@ -133,6 +140,7 @@ object venusaur inherits Npc{
 	var property npcDireccion = npcAbajo
 	var property perdio = false
 	var property iq = 70
+	var property puedePelear = false
 	method PokemonTeam(){
 		self.agregarPokemon(new Venusaur(side="enemy",owner=self))
 	}
@@ -149,32 +157,28 @@ object venusaur inherits Npc{
 	}
 	method interactuar (){
 		personaje.ocupado(true)
-		if (!perdio){
+		if (!perdio&&!puedePelear){
+			self.mostrarDialogo1()
+			game.sound("Venusaur.mp3").play()
+			game.schedule(2000,{personaje.ocupado(false)})
+		}
+		if (!perdio&&puedePelear){
 			self.mostrarDialogo1()
 			game.sound("Venusaur.mp3").play()
 			self.PokemonTeam()
 			game.schedule(2000,{batalla.iniciar(self)})
-		}else{
-			self.mostrarDialogo2()
-			game.sound("Venusaur.mp3").play()
-			if(!cumplioProposito){
-				personaje.agregarPokemon(new Venusaur(owner=personaje))
-				cumplioProposito = true
-				}
-			game.schedule(2000,{personaje.ocupado(false)})
-			game.removeVisual(self)
 		}
 	}
 	method perder() {
 		self.mostrarDialogo2()
-			game.sound("Venusaur.mp3").play()
-			if(!cumplioProposito){
-				personaje.agregarPokemon(new Venusaur(owner=personaje))
-				cumplioProposito = true
-				}
-			game.schedule(2000,{personaje.ocupado(false)})
-			game.removeVisual(self)
-			perdio = true
+		game.sound("Venusaur.mp3").play()
+		if(!cumplioProposito){
+			personaje.agregarPokemon(new Venusaur(owner=personaje))
+			cumplioProposito = true
+		}
+		game.schedule(2000,{personaje.ocupado(false)})
+		game.removeVisual(self)
+		perdio = true
 	}
 }
 //------------------------------------------------------------------------------------------
@@ -182,6 +186,7 @@ object pidgeot inherits Npc{
 	var property npcDireccion = npcAbajo
 	var property perdio = false
 	var property iq = 60
+	var property puedePelear = false
 	method PokemonTeam(){
 		self.agregarPokemon(new Pidgeot(side="enemy",owner=self))
 	}
@@ -198,32 +203,28 @@ object pidgeot inherits Npc{
 	}
 	method interactuar (){
 		personaje.ocupado(true)
-		if (!perdio){
+		if (!perdio&&!puedePelear){
+			self.mostrarDialogo1()
+			game.sound("Pidgeot.mp3").play()
+			game.schedule(2000,{personaje.ocupado(false)})
+		}
+		if (!perdio&&puedePelear){
 			self.mostrarDialogo1()
 			game.sound("Pidgeot.mp3").play()
 			self.PokemonTeam()
 			game.schedule(2000,{batalla.iniciar(self)})
-		}else{
-			self.mostrarDialogo2()
-			game.sound("Pidgeot.mp3").play()
-			if(!cumplioProposito){
-				personaje.agregarPokemon(new Pidgeot(owner=personaje))
-				cumplioProposito = true
-				}
-			game.schedule(2000,{personaje.ocupado(false)})
-			game.removeVisual(self)
 		}
 	}
 	method perder() {
 		self.mostrarDialogo2()
-			game.sound("Pidgeot.mp3").play()
-			if(!cumplioProposito){
-				personaje.agregarPokemon(new Pidgeot(owner=personaje))
-				cumplioProposito = true
-				}
-			game.schedule(2000,{personaje.ocupado(false)})
-			game.removeVisual(self)
-			perdio = true
+		game.sound("Pidgeot.mp3").play()
+		if(!cumplioProposito){
+			personaje.agregarPokemon(new Pidgeot(owner=personaje))
+			cumplioProposito = true
+		}
+		game.schedule(2000,{personaje.ocupado(false)})
+		game.removeVisual(self)
+		perdio = true
 	}
 }
 //------------------------------------------------------------------------------------------
@@ -231,6 +232,7 @@ object lapras inherits Npc{
 	var property npcDireccion = npcAbajo
 	var property perdio = false
 	var property iq = 60
+	var property puedePelear = false
 	method PokemonTeam(){
 		self.agregarPokemon(new Lapras(side="enemy",owner=self))
 	}
@@ -247,31 +249,28 @@ object lapras inherits Npc{
 	}
 	method interactuar (){
 		personaje.ocupado(true)
-		if (!perdio){
+		if (!perdio&&!puedePelear){
+			self.mostrarDialogo1()
+			game.sound("Lapras.mp3").play()
+			game.schedule(2000,{personaje.ocupado(false)})
+		}
+		if (!perdio&&puedePelear){
 			self.mostrarDialogo1()
 			game.sound("Lapras.mp3").play()
 			self.PokemonTeam()
 			game.schedule(2000,{batalla.iniciar(self)})
-		}else{
-			self.mostrarDialogo2()
-			game.sound("Lapras.mp3").play()
-			if(!cumplioProposito){
-				personaje.agregarPokemon(new Lapras(owner=personaje))
-				cumplioProposito = true
-				}
-			game.schedule(2000,{personaje.ocupado(false)})
 		}
 	}
 	method perder() {
 		self.mostrarDialogo2()
-			game.sound("Lapras.mp3").play()
-			if(!cumplioProposito){
-				personaje.agregarPokemon(new Lapras(owner=personaje))
-				cumplioProposito = true
-				}
-			game.schedule(2000,{personaje.ocupado(false)})
-			game.removeVisual(self)
-			perdio = true
+		game.sound("Lapras.mp3").play()
+		if(!cumplioProposito){
+			personaje.agregarPokemon(new Lapras(owner=personaje))
+			cumplioProposito = true
+		}
+		game.schedule(2000,{personaje.ocupado(false)})
+		game.removeVisual(self)
+		perdio = true
 	}
 }
 //------------------------------------------------------------------------------------------
@@ -279,6 +278,7 @@ object butterfree inherits Npc{
 	var property npcDireccion = npcAbajo
 	var property perdio = false
 	var property iq = 30
+	var property puedePelear = false
 	method PokemonTeam(){
 		self.agregarPokemon(new Butterfree(side="enemy",owner=self))
 	}
@@ -295,31 +295,28 @@ object butterfree inherits Npc{
 	}
 	method interactuar (){
 		personaje.ocupado(true)
-		if (!perdio){
+		if (!perdio&&!puedePelear){
+			self.mostrarDialogo1()
+			game.sound("Butterfree.mp3").play()
+			game.schedule(2000,{personaje.ocupado(false)})
+		}
+		if (!perdio&&puedePelear){
 			self.mostrarDialogo1()
 			game.sound("Butterfree.mp3").play()
 			self.PokemonTeam()
 			game.schedule(2000,{batalla.iniciar(self)})
-		}else{
-			self.mostrarDialogo2()
-			game.sound("Butterfree.mp3").play()
-			if(!cumplioProposito){
-				personaje.agregarPokemon(new Butterfree(owner=personaje))
-				cumplioProposito = true
-				}
-			game.schedule(2000,{personaje.ocupado(false)})
 		}
 	}
 	method perder() {
 		self.mostrarDialogo2()
-			game.sound("Butterfree.mp3").play()
-			if(!cumplioProposito){
-				personaje.agregarPokemon(new Butterfree(owner=personaje))
-				cumplioProposito = true
-				}
-			game.schedule(2000,{personaje.ocupado(false)})
-			game.removeVisual(self)
-			perdio = true
+		game.sound("Butterfree.mp3").play()
+		if(!cumplioProposito){
+			personaje.agregarPokemon(new Butterfree(owner=personaje))
+			cumplioProposito = true
+		}
+		game.schedule(2000,{personaje.ocupado(false)})
+		game.removeVisual(self)
+		perdio = true
 	}
 }
 //------------------------------------------------------------------------------------------
@@ -327,6 +324,7 @@ object lairon inherits Npc{
 	var property npcDireccion = npcAbajo
 	var property perdio = false
 	var property iq = 40
+	var property puedePelear = false
 	method PokemonTeam(){
 		self.agregarPokemon(new Lairon(side="enemy",owner=self))
 	}
@@ -343,31 +341,28 @@ object lairon inherits Npc{
 	}
 	method interactuar (){
 		personaje.ocupado(true)
-		if (!perdio){
+		if (!perdio&&!puedePelear){
+			self.mostrarDialogo1()
+			game.sound("Lairon.mp3").play()
+			game.schedule(2000,{personaje.ocupado(false)})
+		}
+		if (!perdio&&puedePelear){
 			self.mostrarDialogo1()
 			game.sound("Lairon.mp3").play()
 			self.PokemonTeam()
 			game.schedule(2000,{batalla.iniciar(self)})
-		}else{
-			self.mostrarDialogo2()
-			game.sound("Lairon.mp3").play()
-			if(!cumplioProposito){
-				personaje.agregarPokemon(new Lairon(owner=personaje))
-				cumplioProposito = true
-				}
-			game.schedule(2000,{personaje.ocupado(false)})
 		}
 	}
 	method perder() {
 		self.mostrarDialogo2()
-			game.sound("Lairon.mp3").play()
-			if(!cumplioProposito){
-				personaje.agregarPokemon(new Lairon(owner=personaje))
-				cumplioProposito = true
-				}
-			game.schedule(2000,{personaje.ocupado(false)})
-			game.removeVisual(self)
-			perdio = true
+		game.sound("Lairon.mp3").play()
+		if(!cumplioProposito){
+			personaje.agregarPokemon(new Lairon(owner=personaje))
+			cumplioProposito = true
+		}
+		game.schedule(2000,{personaje.ocupado(false)})
+		game.removeVisual(self)
+		perdio = true
 	}
 }
 //------------------------------------------------------------------------------------------
@@ -375,6 +370,7 @@ object wigglytuff inherits Npc{
 	var property npcDireccion = npcAbajo
 	var property perdio = false
 	var property iq = 40
+	var property puedePelear = false
 	method PokemonTeam(){
 		self.agregarPokemon(new Wigglytuff(side="enemy",owner=self))
 	}
@@ -391,31 +387,28 @@ object wigglytuff inherits Npc{
 	}
 	method interactuar (){
 		personaje.ocupado(true)
-		if (!perdio){
+		if (!perdio&&!puedePelear){
+			self.mostrarDialogo1()
+			game.sound("Wigglytuff.mp3").play()
+			game.schedule(2000,{personaje.ocupado(false)})
+		}
+		if (!perdio&&puedePelear){
 			self.mostrarDialogo1()
 			game.sound("Wigglytuff.mp3").play()
 			self.PokemonTeam()
 			game.schedule(2000,{batalla.iniciar(self)})
-		}else{
-			self.mostrarDialogo2()
-			game.sound("Wigglytuff.mp3").play()
-			if(!cumplioProposito){
-				personaje.agregarPokemon(new Wigglytuff(owner=personaje))
-				cumplioProposito = true
-				}
-			game.schedule(2000,{personaje.ocupado(false)})
 		}
 	}
 	method perder() {
 		self.mostrarDialogo2()
-			game.sound("Wigglytuff.mp3").play()
-			if(!cumplioProposito){
-				personaje.agregarPokemon(new Wigglytuff(owner=personaje))
-				cumplioProposito = true
-				}
-			game.schedule(2000,{personaje.ocupado(false)})
-			game.removeVisual(self)
-			perdio = true
+		game.sound("Wigglytuff.mp3").play()
+		if(!cumplioProposito){
+			personaje.agregarPokemon(new Wigglytuff(owner=personaje))
+			cumplioProposito = true
+		}
+		game.schedule(2000,{personaje.ocupado(false)})
+		game.removeVisual(self)
+		perdio = true
 	}
 }
 //------------------------------------------------------------------------------------------
@@ -423,6 +416,7 @@ object kyurem inherits Npc{
 	var property npcDireccion = npcAbajo
 	var property perdio = false
 	var property iq = 100
+	var property puedePelear = false
 	method PokemonTeam(){
 		self.agregarPokemon(new Kyurem(side="enemy",owner=self))
 	}
@@ -437,33 +431,36 @@ object kyurem inherits Npc{
 		game.addVisual(dialogokyurem2)
 		game.schedule(2000, {game.removeVisual(dialogokyurem2)})
 	}
+	method shock(){
+		game.addVisual(shocklines)
+		game.schedule(2000, {game.removeVisual(shocklines)})
+	}
 	method interactuar (){
 		personaje.ocupado(true)
-		if (!perdio){
+		if (!perdio&&!puedePelear){
 			self.mostrarDialogo1()
 			game.sound("Kyurem.mp3").play()
+			self.shock()
+			game.schedule(2000,{personaje.ocupado(false)})
+		}
+		if (!perdio&&puedePelear){
+			self.mostrarDialogo1()
+			game.sound("Kyurem.mp3").play()
+			self.shock()
 			self.PokemonTeam()
 			game.schedule(2000,{batalla.iniciar(self)})
-		}else{
-			self.mostrarDialogo2()
-			game.sound("Kyurem.mp3").play()
-			if(!cumplioProposito){
-				cumplioProposito = true
-				}
-			game.schedule(2000,{personaje.ocupado(false)})
 		}
 	}
 	method perder() {
 		self.mostrarDialogo2()
-			game.sound("Kyurem.mp3").play()
-			if(!cumplioProposito){
-				personaje.agregarPokemon(new Kyurem(owner=personaje))
-				cumplioProposito = true
-				}
-			game.schedule(2000,{personaje.ocupado(false)})
-			game.removeVisual(self)
-			game.removeVisual(kyuremImagen)
-			perdio = true
+		game.sound("Kyurem.mp3").play()
+		if(!cumplioProposito){
+			cumplioProposito = true
+		}
+		game.schedule(2000,{personaje.ocupado(false)})
+		game.removeVisual(self)
+		game.removeVisual(kyuremImagen)
+		perdio = true
 	}
 }
 object kyuremImagen inherits Npc{
