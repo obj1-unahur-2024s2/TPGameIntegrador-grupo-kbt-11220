@@ -83,3 +83,7 @@ object dialogokyurem2{
     var property image = "dialogokyurem2.png"
 	var property position = game.at(0,0)
 }
+object shocklines{
+    var property image = "shock.gif"
+	var property position = game.at(0,0)
+}

@@ -8,14 +8,14 @@ import pokemon.*
 import tipo.*
 
 object pokeball {
-    var property position = game.at(10, 14)
-    method image() = "pokeb.gif"
+    var property position = game.at(12, 14)
+    method image() = "pokeball.gif"
 }
 object pokemonesCapturados {
     var numero = 0
     method sumar() {numero+=1}
-    var property position = game.at(12, 14)
-    method image() = "pokemonCapturado" + numero.toString() + ".png"
+    var property position = game.at(13, 14)
+    method image() = "capturado" + numero.toString() + ".png"
 }
 
 object nivelCentral {
